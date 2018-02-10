@@ -47,15 +47,15 @@ def processRequest(req):
     name = parameters.get("name")
     #Convert time to Indian Time Zone
     current_time_in_utc = datetime.utcnow()
-    time = current_time_in_utc + timedelta(hours=5,minutes=30)
-    Day = time.weekday()
+    timez = current_time_in_utc + timedelta(hours=5,minutes=30)
+    Day = timez.weekday()
     # Because we have holiday on weekends :-p
     Day = 3
     if Day < 5:
         # Convert time in 12 hour format
-        if time.hour in [3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
-            if time.hour > 12:
-                time = time.hour % 12
+        if timez.hour in [3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
+            if timez.hour > 12:
+                time = timez.hour % 12
             # The CSV file
             df = pd.read_csv("Free_Slot.csv")
 
