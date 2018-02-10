@@ -68,7 +68,7 @@ def processRequest(req):
         res = makeWebhookResult(name)
     return res
 
-def makeWebhookResult(data):
+def makeWebhookResult(name):
     # print(json.dumps(item, indent=4))
     speech = name + " is free because today is holiday. Dumb!!!"
     print("Response:")
@@ -100,9 +100,9 @@ def makeWebhookResult2(data,name):
         "source": "dialogflow-freeslot-webhook-sample"
     }
 
-def makeWebhookResult3(data):
+def makeWebhookResult3(name):
     # print(json.dumps(item, indent=4))
-    speech = data + " is free because classes are over. Dumb!!!"
+    speech = name + " is free because classes are over. Dumb!!!"
     print("Response:")
     print(speech)
 
