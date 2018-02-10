@@ -6,6 +6,7 @@ from future.standard_library import install_aliases
 import time
 import pandas as pd
 import datetime
+from datetime import timedelta
 import string
 install_aliases()
 
@@ -47,6 +48,7 @@ def processRequest(req):
     parameters = result.get("parameters")
     name = parameters.get("name")
     now = datetime.datetime.now()
+    now = now + timedelta(hours=5, minutes=30)
     Day = datetime.datetime.today().weekday()
     # Because we have holiday on weekends :-p
     Day = 3
