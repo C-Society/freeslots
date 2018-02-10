@@ -5,7 +5,7 @@ from __future__ import print_function
 from future.standard_library import install_aliases
 import time
 import pandas as pd
-import datetime
+from datetime import datetime, timedelta
 import string
 install_aliases()
 
@@ -46,15 +46,17 @@ def processRequest(req):
     result = req.get("result")
     parameters = result.get("parameters")
     name = parameters.get("name")
-    now = datetime.datetime.now()
-    Day = datetime.datetime.today().weekday()
+    #Convert time to Indian Time Zone
+    current_time_in_utc = datetime.utcnow()
+    time = current_time_in_utc + timedelta(hours=5,minutes=30)
+    Day = time.weekday()
     # Because we have holiday on weekends :-p
     Day = 3
     if Day < 5:
         # Convert time in 12 hour format
-        if now.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 4, 3]:
-            if now.hour > 12:
-                time = now.hour % 12
+        if time.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 4, 3]:
+            if time.hour > 12:
+                time = time.hour % 12
             # The CSV file
             df = pd.read_csv("Free_Slot.csv")
 
