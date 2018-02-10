@@ -49,10 +49,9 @@ def processRequest(req):
     now = datetime.datetime.now()
     Day = datetime.datetime.today().weekday()
     # Because we have holiday on weekends :-p
-    Day = 3
     if Day < 5:
         # Convert time in 12 hour format
-        if now.hour in [5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
+        if now.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
             if now.hour > 12:
                 time = now.hour % 12
             # The CSV file
