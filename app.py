@@ -60,26 +60,26 @@ def processRequest(req):
     parameters = result.get("parameters")
     name = parameters.get("name")
     now = datetime.datetime.now()
-    # Convert time in 12 hour format
-    if now.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
-        if now.hour > 12:
-            time = now.hour % 12
-        # The CSV file
-        df = pd.read_csv("Free_Slot.csv")
-        Day = datetime.datetime.today().weekday()
-        print(Day)
-        # Because we have holiday on weekends :-p
-        Day = 3
-        if Day > 4:
-            res = makeWebhookResult(name)
-        else:
+    Day = datetime.datetime.today().weekday()
+    # Because we have holiday on weekends :-p
+    Day = 3
+    if Day < 5:
+        # Convert time in 12 hour format
+        if now.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
+            if now.hour > 12:
+                time = now.hour % 12
+            # The CSV file
+            df = pd.read_csv("Free_Slot.csv")
+
             df1 = df.loc[df['Day'] == Day]
             df2 = df1.loc[:, name]
             df3 = df2.loc[df['Time'] == time]
             df4 = df3.values
             res = makeWebhookResult2(df4[0], name)
+        else:
+            res = makeWebhookResult3(name)
     else:
-        res = makeWebhookResult3(name)
+        res = makeWebhookResult(name)
     return res
 
 def makeWebhookResult(data):
@@ -116,7 +116,7 @@ def makeWebhookResult2(data,name):
 
 def makeWebhookResult3(data):
     # print(json.dumps(item, indent=4))
-    speech = data + "is free because classes are over. Dumb!!!"
+    speech = data + " is free because classes are over. Dumb!!!"
     print("Response:")
     print(speech)
 
