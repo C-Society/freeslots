@@ -6,7 +6,6 @@ from future.standard_library import install_aliases
 import time
 import pandas as pd
 import datetime
-from datetime import timedelta
 import string
 install_aliases()
 
