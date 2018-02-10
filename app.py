@@ -3,7 +3,6 @@
 
 from __future__ import print_function
 from future.standard_library import install_aliases
-import time
 import pandas as pd
 from datetime import datetime, timedelta
 import string
@@ -54,7 +53,7 @@ def processRequest(req):
     Day = 3
     if Day < 5:
         # Convert time in 12 hour format
-        if time.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 4, 3]:
+        if time.hour in [3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
             if time.hour > 12:
                 time = time.hour % 12
             # The CSV file
