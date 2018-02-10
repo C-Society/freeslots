@@ -26,6 +26,7 @@ from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
+import os
 import json
 
 from flask import Flask
@@ -55,32 +56,35 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "FreeSlot":
         return {}
+    result = req.get("result")
+    parameters = result.get("parameters")
     name = parameters.get("name")
     now = datetime.datetime.now()
     # Convert time in 12 hour format
-    if now.hour > 12:
-        time = now.hour % 12
-
-    # The CSV file
-    df = pd.read_csv("Free_Slot.csv")
-    Day = datetime.datetime.today().weekday()
-    print(Day)
-    # Because we have holiday on weekends :-p
-    Day = 2
-    if Day > 4:
-        res = makeWebhookResult("Today is Holiday")
+    if now.hour is [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
+        if now.hour > 12:
+            time = now.hour % 12
+        # The CSV file
+        df = pd.read_csv("Free_Slot.csv")
+        Day = datetime.datetime.today().weekday()
+        print(Day)
+        # Because we have holiday on weekends :-p
+        Day = 3
+        if Day > 4:
+            res = makeWebhookResult(name)
+        else:
+            df1 = df.loc[df['Day'] == Day]
+            df2 = df1.loc[:, name]
+            df3 = df2.loc[df['Time'] == time]
+            df4 = df3.values
+            res = makeWebhookResult2(df4[0], name)
     else:
-        df1 = df.loc[df['Day'] == 0]
-        df2 = df1.loc[:, name]
-        df3 = df2.loc[df['Time'] == time]
-        df4 = df3.values
-        res = makeWebhookResult2(df4[0], name)
-
+        res = makeWebhookResult3(name)
     return res
 
 def makeWebhookResult(data):
     # print(json.dumps(item, indent=4))
-    speech = data
+    speech = name + "is free because today is holiday. Dumb!!!"
     print("Response:")
     print(speech)
 
@@ -94,7 +98,7 @@ def makeWebhookResult(data):
 
 def makeWebhookResult2(data,name):
     # print(json.dumps(item, indent=4))
-    if data == "Free":
+    if data == "free":
         speech = name + " is " + data + " right now!!"
     else:
         speech = name + " is in " + data + " right now!!"
@@ -109,6 +113,21 @@ def makeWebhookResult2(data,name):
         # "contextOut": [],
         "source": "dialogflow-freeslot-webhook-sample"
     }
+
+def makeWebhookResult3(data):
+    # print(json.dumps(item, indent=4))
+    speech = name + "is free because classes are over. Dumb!!!"
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "dialogflow-freeslot-webhook-sample"
+    }
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
