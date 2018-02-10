@@ -61,7 +61,7 @@ def processRequest(req):
     name = parameters.get("name")
     now = datetime.datetime.now()
     # Convert time in 12 hour format
-    if now.hour is [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
+    if now.hour in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
         if now.hour > 12:
             time = now.hour % 12
         # The CSV file
