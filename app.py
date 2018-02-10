@@ -84,7 +84,7 @@ def processRequest(req):
 
 def makeWebhookResult(data):
     # print(json.dumps(item, indent=4))
-    speech = name + "is free because today is holiday. Dumb!!!"
+    speech = name + " is free because today is holiday. Dumb!!!"
     print("Response:")
     print(speech)
 
