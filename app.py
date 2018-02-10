@@ -116,7 +116,7 @@ def makeWebhookResult2(data,name):
 
 def makeWebhookResult3(data):
     # print(json.dumps(item, indent=4))
-    speech = name + "is free because classes are over. Dumb!!!"
+    speech = data + "is free because classes are over. Dumb!!!"
     print("Response:")
     print(speech)
 
