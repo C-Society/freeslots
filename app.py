@@ -53,12 +53,12 @@ def processRequest(req):
     if Day < 5:
         working_hour = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
         if now in working_hour:
-            data = "Test test"
-            res = makeWebhookResult3(data)
-            return res
         # Convert time in 12 hour format
             if now > 12:
                 time = now % 12
+            data = "Test test"
+            res = makeWebhookResult3(data)
+            return res
             # The CSV file
             df = pd.read_csv("Free_Slot.csv")
             df1 = df.loc[df['Day'] == Day]
