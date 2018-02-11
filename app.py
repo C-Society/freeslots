@@ -49,7 +49,7 @@ def processRequest(req):
     #datetime.datetime.now()
     #Day = datetime.datetime.today().weekday()
     # Because we have holiday on weekends :-p
-    Day = 3
+    Day = 6
     if Day < 5:
         working_hour = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
         if now in working_hour:
@@ -58,7 +58,6 @@ def processRequest(req):
                 time = now % 12
             # The CSV file
             df = pd.read_csv("Free_Slot.csv")
-
             df1 = df.loc[df['Day'] == Day]
             df2 = df1.loc[:, name]
             df3 = df2.loc[df['Time'] == time]
@@ -67,7 +66,8 @@ def processRequest(req):
         else:
             res = makeWebhookResult3(name)
     else:
-        res = makeWebhookResult(name)
+        data = "Test Test"
+        res = makeWebhookResult2(data,name)
     return res
 
 def makeWebhookResult(name1):
