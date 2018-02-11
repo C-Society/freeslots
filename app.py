@@ -34,11 +34,9 @@ def webhook():
     res = processRequest(req)
 
     res = json.dumps(res, indent=4)
-    # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
-
 
 def processRequest(req):
     if req.get("result").get("action") != "FreeSlot":
@@ -72,9 +70,9 @@ def processRequest(req):
         res = makeWebhookResult(name)
     return res
 
-def makeWebhookResult(name):
+def makeWebhookResult(name1):
     # print(json.dumps(item, indent=4))
-    speech = name + " is free because today is holiday. Dumb!!!"
+    speech = name1 + " is free because today is holiday. Dumb!!!"
     print("Response:")
     print(speech)
 
@@ -86,12 +84,12 @@ def makeWebhookResult(name):
         "source": "dialogflow-freeslot-webhook-sample"
     }
 
-def makeWebhookResult2(data,name):
+def makeWebhookResult2(data2,name2):
     # print(json.dumps(item, indent=4))
-    if data == "free":
-        speech = name + " is " + data + " right now!!"
+    if data2 == "free":
+        speech = name2 + " is " + data2 + " right now!!"
     else:
-        speech = name + " is in " + data + " right now!!"
+        speech = name2 + " is in " + data2 + " right now!!"
 
     print("Response:")
     print(speech)
@@ -104,9 +102,9 @@ def makeWebhookResult2(data,name):
         "source": "dialogflow-freeslot-webhook-sample"
     }
 
-def makeWebhookResult3(name):
+def makeWebhookResult3(name3):
     # print(json.dumps(item, indent=4))
-    speech = name + " is free because classes are over. Dumb!!!"
+    speech = name3 + " is free because classes are over. Dumb!!!"
     print("Response:")
     print(speech)
 
