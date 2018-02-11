@@ -56,9 +56,6 @@ def processRequest(req):
         # Convert time in 12 hour format
             if now > 12:
                 time = now % 12
-            data = "Test test"
-            res = makeWebhookResult3(data)
-            return res
             # The CSV file
             df = pd.read_csv("Free_Slot.csv")
             df1 = df.loc[df['Day'] == Day]
@@ -66,6 +63,7 @@ def processRequest(req):
             df3 = df2.loc[df['Time'] == time]
             df4 = df3.values
             res = makeWebhookResult2(df4[0], name)
+            return res
         else:
             res = makeWebhookResult3(name)
     else:
