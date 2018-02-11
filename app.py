@@ -45,10 +45,11 @@ def processRequest(req):
     parameters = result.get("parameters")
     name = parameters.get("name")
     name = str.lower(name)
+    # The CSV file
     df = pd.read_csv("Free_Slot.csv")
     df_check = df.loc[df['Day'] == 21]
     df_check = df_check.values
-    if name in df4:
+    if name in df_check:
         now = datetime.datetime.now()
         Day = datetime.datetime.today().weekday()
         # Because we have holiday on weekends :-p
@@ -58,8 +59,6 @@ def processRequest(req):
             # Convert time in 12 hour format
                 if now.hour > 12:
                     time = now.hour % 12
-                # The CSV file
-
                 df1 = df.loc[df['Day'] == Day]
                 df2 = df1.loc[:, name]
                 df3 = df2.loc[df['Time'] == time]
