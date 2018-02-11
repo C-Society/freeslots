@@ -49,8 +49,11 @@ def processRequest(req):
     #datetime.datetime.now()
     #Day = datetime.datetime.today().weekday()
     # Because we have holiday on weekends :-p
-    Day = 6
+    Day = 3
     if Day < 5:
+        data = "test test"
+        res = makeWebhookResult3(data)
+        return res
         working_hour = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
         if now in working_hour:
         # Convert time in 12 hour format
@@ -66,8 +69,7 @@ def processRequest(req):
         else:
             res = makeWebhookResult3(name)
     else:
-        data = "Test Test"
-        res = makeWebhookResult2(data,name)
+        res = makeWebhookResult(name)
     return res
 
 def makeWebhookResult(name1):
