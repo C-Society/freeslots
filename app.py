@@ -45,7 +45,7 @@ def processRequest(req):
     parameters = result.get("parameters")
     name = parameters.get("name")
     name = str.lower(name)
-    now = 14
+    now = 15
     #datetime.datetime.now()
     #Day = datetime.datetime.today().weekday()
     # Because we have holiday on weekends :-p
