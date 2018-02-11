@@ -45,27 +45,34 @@ def processRequest(req):
     parameters = result.get("parameters")
     name = parameters.get("name")
     name = str.lower(name)
-    now = datetime.datetime.now()
-    Day = datetime.datetime.today().weekday()
-    # Because we have holiday on weekends :-p
-    if Day < 5:
-        working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
-        if now.hour in working_hour:
-        # Convert time in 12 hour format
-            if now.hour > 12:
-                time = now.hour % 12
-            # The CSV file
-            df = pd.read_csv("Free_Slot.csv")
-            df1 = df.loc[df['Day'] == Day]
-            df2 = df1.loc[:, name]
-            df3 = df2.loc[df['Time'] == time]
-            df4 = df3.values
-            res = makeWebhookResult2(df4[0], name)
+    df = pd.read_csv("Free_Slot.csv")
+    df_check = df.loc[df['Day'] == 21]
+    df_check = df_check.values
+    if name in df4:
+        now = datetime.datetime.now()
+        Day = datetime.datetime.today().weekday()
+        # Because we have holiday on weekends :-p
+        if Day < 5:
+            working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
+            if now.hour in working_hour:
+            # Convert time in 12 hour format
+                if now.hour > 12:
+                    time = now.hour % 12
+                # The CSV file
+
+                df1 = df.loc[df['Day'] == Day]
+                df2 = df1.loc[:, name]
+                df3 = df2.loc[df['Time'] == time]
+                df4 = df3.values
+                res = makeWebhookResult2(df4[0], name)
+            else:
+                res = makeWebhookResult3(name)
         else:
-            res = makeWebhookResult3(name)
+            res = makeWebhookResult(name)
+        return res
     else:
-        res = makeWebhookResult(name)
-    return res
+        return {}
+            
 
 def makeWebhookResult(name1):
     # print(json.dumps(item, indent=4))
