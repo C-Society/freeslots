@@ -62,7 +62,8 @@ def processRequest(req):
             # Convert time in 12 hour format
                 if now.hour > 12:
                     time = now.hour % 12
-
+                else:
+                    time = now.hour
                 df1 = df.loc[df['Day'] == Day]
 
                
