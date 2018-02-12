@@ -54,9 +54,7 @@ def processRequest(req):
         Day = datetime.datetime.today().weekday()
         # Because we have holiday on weekends :-p
 
-        data = "test test"
-        res = makeWebhookResult3(data)
-        return res
+
 
         if Day < 5:
             working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
@@ -64,6 +62,12 @@ def processRequest(req):
             # Convert time in 12 hour format
                 if now.hour > 12:
                     time = now.hour % 12
+                
+
+                data = "test test"
+      
+                res = makeWebhookResult3(data)
+                return res
                 df1 = df.loc[df['Day'] == Day]
                 df2 = df1.loc[:, name]
                 df3 = df2.loc[df['Time'] == time]
