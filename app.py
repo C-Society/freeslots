@@ -66,12 +66,13 @@ def processRequest(req):
                 df1 = df.loc[df['Day'] == Day]
 
                 df2 = df1.loc[:, name]
-                df3 = df2.loc[df['Time'] == time]
-                df4 = df3.values
-                data = "test test"
+                data = str(time)
                 res = makeWebhookResult3(data)
                 return res
          
+                df3 = df2.loc[df['Time'] == time]
+                df4 = df3.values
+                
                 res = makeWebhookResult2(df4[0], name)
             else:
                 res = makeWebhookResult3(name)
