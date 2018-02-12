@@ -53,9 +53,7 @@ def processRequest(req):
         now = datetime.datetime.now()
         Day = datetime.datetime.today().weekday()
         # Because we have holiday on weekends :-p
-
-
-
+        
         if Day < 5:
             working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
             if now.hour in working_hour:
@@ -65,14 +63,9 @@ def processRequest(req):
                 else:
                     time = now.hour
                 df1 = df.loc[df['Day'] == Day]
-
-               
                 df2 = df1.loc[:, name]
-    
-         
                 df3 = df2.loc[df['Time'] == time]
                 df4 = df3.values
-                
                 res = makeWebhookResult2(df4[0], name)
             else:
                 res = makeWebhookResult3(name)
@@ -82,10 +75,9 @@ def processRequest(req):
     else:
         return {}
             
-
 def makeWebhookResult(name1):
     # print(json.dumps(item, indent=4))
-    speech = name1 + " is free because today is holiday. Dumb!!!"
+    speech = name1 + " is free because today is holiday. You Dumb!!"
     print("Response:")
     print(speech)
 
@@ -117,7 +109,7 @@ def makeWebhookResult2(data2,name2):
 
 def makeWebhookResult3(name3):
     # print(json.dumps(item, indent=4))
-    speech = name3 + " is free because classes are over. Dumb!!!"
+    speech = name3 + " is free because classes are over. You Dumb!!!"
     print("Response:")
     print(speech)
 
