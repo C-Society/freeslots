@@ -53,6 +53,7 @@ def processRequest(req):
         now = datetime.datetime.now()
         Day = datetime.datetime.today().weekday()
         # Because we have holiday on weekends :-p
+        Day = 2
         if Day < 5:
             working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
             if now.hour in working_hour:
