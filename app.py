@@ -64,8 +64,8 @@ def processRequest(req):
                     time = now.hour % 12
 
                 df1 = df.loc[df['Day'] == Day]
-                data1 = Day+time
-                data = str(data1)
+
+                data = "free1"
                 res = makeWebhookResult3(data)
                 return res
                 df2 = df1.loc[:, name]
