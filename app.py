@@ -64,11 +64,12 @@ def processRequest(req):
                     time = now.hour % 12
 
                 df1 = df.loc[df['Day'] == Day]
-
-                df2 = df1.loc[:, name]
-                data = str(time)
+                data1 = Day+time
+                data = str(data1)
                 res = makeWebhookResult3(data)
                 return res
+                df2 = df1.loc[:, name]
+    
          
                 df3 = df2.loc[df['Time'] == time]
                 df4 = df3.values
