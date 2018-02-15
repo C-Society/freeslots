@@ -76,11 +76,13 @@ def processRequest(req):
     elif req.get("result").get("action") == "2TeamVP.2TeamVP-custom":
         result = req.get("result")
         context = result.get("context")
-        option = context[0]["OPTION"]
-        if option == 1:
-            name = "Jyotsna"
-            res = makeWebhookResult4(name)
-            return res
+        parameters = context.get("parameters")
+        #for i in [0,1,2,3]
+        #option = parameters[i]["OPTION"]
+        #if option == 1:
+        name = "Jyotsna"
+        res = makeWebhookResult4(name)
+        return res
     else:
         return {}
 
