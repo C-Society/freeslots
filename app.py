@@ -39,41 +39,65 @@ def webhook():
     return r
 
 def processRequest(req):
-    if req.get("result").get("action") != "FreeSlot":
-        return {}
-    result = req.get("result")
-    parameters = result.get("parameters")
-    name = parameters.get("name")
-    name = str.lower(name)
-    # The CSV file
-    df = pd.read_csv("Free_Slot.csv")
-    df_check = df.loc[df['Day'] == 21]
-    df_check = df_check.values
-    if name in df_check:
-        now = datetime.datetime.now()
-        Day = datetime.datetime.today().weekday()
-        # Because we have holiday on weekends :-p
-        
-        if Day < 5:
-            working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
-            if now.hour in working_hour:
-            # Convert time in 12 hour format
-                if now.hour > 12:
-                    time = now.hour % 12
+    if req.get("result").get("action") == "FreeSlot":
+        result = req.get("result")
+        parameters = result.get("parameters")
+        name = parameters.get("name")
+        name = str.lower(name)
+        # The CSV file
+        df = pd.read_csv("Free_Slot.csv")
+        df_check = df.loc[df['Day'] == 21]
+        df_check = df_check.values
+        if name in df_check:
+            now = datetime.datetime.now()
+            Day = datetime.datetime.today().weekday()
+            # Because we have holiday on weekends :-p
+
+            if Day < 5:
+                working_hour = [8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
+                if now.hour in working_hour:
+                    # Convert time in 12 hour format
+                    if now.hour > 12:
+                        time = now.hour % 12
+                    else:
+                        time = now.hour
+                    df1 = df.loc[df['Day'] == Day]
+                    df2 = df1.loc[:, name]
+                    df3 = df2.loc[df['Time'] == time]
+                    df4 = df3.values
+                    res = makeWebhookResult2(df4[0], name)
                 else:
-                    time = now.hour
-                df1 = df.loc[df['Day'] == Day]
-                df2 = df1.loc[:, name]
-                df3 = df2.loc[df['Time'] == time]
-                df4 = df3.values
-                res = makeWebhookResult2(df4[0], name)
+                    res = makeWebhookResult3(name)
             else:
-                res = makeWebhookResult3(name)
+                res = makeWebhookResult(name)
+            return res
         else:
-            res = makeWebhookResult(name)
+            return {}
+    elif req.get("result").get("action") == "2TeamVP.2TeamVP-custom":
+        result = req.get("result")
+        context = result.get("context")
+        parameters = context.get("parameters")
+        #for i in [0,1,2,3]
+        #option = parameters[i]["OPTION"]
+        #if option == 1:
+        name = "Jyotsna"
+        res = makeWebhookResult4(name)
         return res
     else:
         return {}
+
+def makeWebhookResult4(name):
+    speech = name
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "dialogflow-freeslot-webhook-sample"
+    }
             
 def makeWebhookResult(name1):
     # print(json.dumps(item, indent=4))
