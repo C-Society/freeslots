@@ -44,6 +44,7 @@ def processRequest(req):
     result = req.get("result")
     parameters = result.get("parameters")
     name = parameters.get("name")
+    name = name[0]
     name = str.lower(name)
     # The CSV file
     df = pd.read_csv("Free_Slot.csv")
