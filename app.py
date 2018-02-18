@@ -39,7 +39,7 @@ def webhook():
     return r
 
 def processRequest(req):
-    if req.get("result").get("action") != "11FreeSlot.11FreeSlot-custom":
+    if req.get("result").get("action") != "FreeSlot":
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
